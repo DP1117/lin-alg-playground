@@ -26,6 +26,12 @@ def run():
             case "31":
                 print("\n!!!ADD TWO ROWS!!!\n")
                 matrix = ElementaryOperations.add_rows(matrix)
+            case "32":
+                print("\n!!!SCALE A ROW!!!\n")
+                matrix = ElementaryOperations.scale_rows(matrix)
+            case "33":
+                print("\n!!!INTERCHANGE TWO ROWS!!!\n")
+                matrix = ElementaryOperations.interchange_rows(matrix)
             case _:
                 print("\n!!!INVALID OPTION!!!\n")
         choice = Interface.menu()
