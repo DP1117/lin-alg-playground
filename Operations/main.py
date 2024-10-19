@@ -1,5 +1,5 @@
 from tabulate import tabulate
-import Interface, EditMatrix, AccessMatrix, ElementaryOperations
+import Interface, EditMatrix, AccessMatrix, ElementaryOperations, EchelonForms
 
 matrix = []
 
@@ -32,6 +32,12 @@ def run():
             case "33":
                 print("\n!!!INTERCHANGE TWO ROWS!!!\n")
                 matrix = ElementaryOperations.interchange_rows(matrix)
+            case "41":
+                print("\n!!!REF FORM!!!\n")
+                EchelonForms.ref(matrix)
+            case "42":
+                print("\n!!!RREF FORM!!!\n")
+                EchelonForms.rref(matrix)
             case _:
                 print("\n!!!INVALID OPTION!!!\n")
         choice = Interface.menu()
