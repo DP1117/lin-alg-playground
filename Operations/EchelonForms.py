@@ -38,22 +38,27 @@ def add(r1, r2, s):
     matrix[r1][i] += matrix[r2][i] * s
 
 def RREF():
-  for i in range(min(len(matrix), len(matrix[0]))):
-    # interchange row to have a non-zero entry in the ith column
-    for k in range(i, len(matrix)):
-      if matrix[k][i] != 0:
-        interchange(i, k)
-        break
-    # scale the ith row by 1/matrix[i][i]
-    s = matrix[i][i]
-    if s == 0:
-      continue  
-    scale(i, 1/matrix[i][i])
-    # reduce all ith column entries to 0
-    for k in range(len(matrix)):
-      if k == i:
-        continue
-      add(k, i, -matrix[k][i])
+    num_rows = len(matrix)
+    num_cols = len(matrix[0])
+    
+    pivot = 0
+    for i in range(num_rows):
+        if pivot >= num_cols:
+            return
+        temp = i
+        while matrix[temp][pivot] == 0:
+            temp += 1
+            if temp == num_rows:
+                temp = i
+                pivot += 1
+                if pivot == num_cols:
+                  return
+        interchange(temp, i)
+        scale(i, 1 / matrix[i][pivot])
+        for j in range(num_rows):
+            if j != i:
+                add(j, i, -matrix[j][pivot])
+        pivot += 1
       
     
 RREF()
