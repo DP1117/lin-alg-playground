@@ -3,7 +3,7 @@ import numpy as np # Numpy library
 import math
 import sys
 
-def crop_image(img, rows, cols):
+def crop(img, rows, cols):
     return img[rows[0]:rows[1],cols[0]:cols[1]]
 
 def vertical_reflection(img):
@@ -58,11 +58,9 @@ def transpose(img):
 
     return new_img
 
-def lighten(img):
-    return 1
-
-def contrast(img):
-    return 1
+def lighten(img, value):
+    # Add a constant value to all pixels and clip the pixel intensity in between [0, 255]
+    return np.clip(img + value, 0, 255).astype(np.uint8)
 
 img = cv.imread(cv.samples.findFile("img.jpg")) # Reads an image
 og_img = img.copy()
@@ -89,7 +87,7 @@ while not k == ord("s"): # Run until user presses 's' button to save image
         cols.append(int(input()))
         print("Input column 2: ")
         cols.append(int(input()))
-        img = crop_image(img, rows, cols)
+        img = crop(img, rows, cols)
     elif k == ord("v"): # vertically flips image
         img = vertical_reflection(img)
     elif k == ord("h"):
@@ -99,8 +97,6 @@ while not k == ord("s"): # Run until user presses 's' button to save image
     elif k == ord("r"):
         img = rotate(img, math.radians(45))
     elif k == ord("l"):
-        img = lighten(img)
-    elif k == ord("n"):
-        img = contrast(img)
+        img = lighten(img, 20)
 
 cv.imwrite("edited_img.jpg", img) # Saves edited img to edited_img.jpeg
